@@ -555,7 +555,12 @@ public class Precios extends javax.swing.JFrame {
         String proveedor;
         int id=-1;
         int id_proveedor=-1;
+        if (!"".equals(txtcodigo.getText())){
         proveedor=cmbproveedor.getItemAt(cmbproveedor.getSelectedIndex());
+        }
+        else{
+           proveedor=txtcodigo.getText();
+        }
         
         //trae el valor de proveedor
         try{
