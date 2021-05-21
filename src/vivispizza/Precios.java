@@ -307,8 +307,7 @@ public class Precios extends javax.swing.JFrame {
                 nombre=(rs.getString("descripcion"));
                 id=(rs.getInt("id_det_prod"));
               
-            }
-            
+            }        
             
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
@@ -360,7 +359,7 @@ public class Precios extends javax.swing.JFrame {
                                
                            
                 //en esta linea se encuentra la forma de pasar de jdchooser a mysql
-                int i = metodos.guardar_precios(txtpreciocompra.getText(),txtprecioventa.getText(),id,id_proveedor,cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex()),Descripcion);
+                int i = metodos.guardar_precios(txtpreciocompra.getText(),txtprecioventa.getText(),id,id_proveedor,Codigo_producto,Descripcion);
               //  int i = metodos.detalle_producto(cmbtipo_prod.getItemAt(cmbtipo_prod.getSelectedIndex()),txtdescripcion.getText());
                 if (i > 0) {
                     JOptionPane.showMessageDialog(this, "Datos guardados correctamente");
