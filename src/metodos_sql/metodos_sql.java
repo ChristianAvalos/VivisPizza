@@ -525,7 +525,7 @@ public class metodos_sql {
             public int actualizar_precios (String precio_compra, String precio_venta,int IdProveedor, String Codigo_Producto) {
                int resultado = 0;
         Connection conexion = null;
-        String sentencia_guardar = ("UPDATE Precios SET Precio_compra='"+precio_compra+"',Precio_venta='"+precio_venta+"',id_proveedor='"+IdProveedor+"',Codigo_producto='"+Codigo_Producto+"' WHERE Codigo_producto= '"+Codigo_Producto+"'");
+        String sentencia_guardar = ("UPDATE Precios SET Precio_compra='"+precio_compra+"',Precio_venta='"+precio_venta+"',id_proveedor='"+IdProveedor+"' WHERE Codigo_producto= '"+Codigo_Producto+"'");
 
         try {
             conexion = conexiondb.getConexion();

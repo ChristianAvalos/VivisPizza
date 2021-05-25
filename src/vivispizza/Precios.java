@@ -555,13 +555,15 @@ public class Precios extends javax.swing.JFrame {
         String proveedor;
         int id=-1;
         int id_proveedor=-1;
+        String codigo;
         if (!"".equals(txtcodigo.getText())){
-        proveedor=cmbproveedor.getItemAt(cmbproveedor.getSelectedIndex());
+        codigo=txtcodigo.getText();
         }
         else{
-           proveedor=txtcodigo.getText();
+           codigo=cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex());
+            
         }
-        
+        proveedor=cmbproveedor.getItemAt(cmbproveedor.getSelectedIndex());
         //trae el valor de proveedor
         try{
            PreparedStatement ps = null;
@@ -591,7 +593,7 @@ public class Precios extends javax.swing.JFrame {
             if ("".equals(txtpreciocompra.getText())) {
                 JOptionPane.showMessageDialog(this, "Completar los campos por favor");
             } else {
-                int i = metodos.actualizar_precios(txtpreciocompra.getText(),txtprecioventa.getText(),id_proveedor,cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex()));
+                int i = metodos.actualizar_precios(txtpreciocompra.getText(),txtprecioventa.getText(),id_proveedor,codigo);
                 if (i > 0) {
                     JOptionPane.showMessageDialog(this, "Datos guardados correctamente");
                 } else {
