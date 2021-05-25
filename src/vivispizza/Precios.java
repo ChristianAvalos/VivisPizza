@@ -702,6 +702,10 @@ public class Precios extends javax.swing.JFrame {
        public void traerNombreCodigo(){
         String Codigo_Producto=null;
         String Nombre=null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection conexion = null;
+         
         if (!"Seleccione tipo".equals(cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex()))){
             Codigo_Producto = cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex());
         }else{
@@ -710,16 +714,13 @@ public class Precios extends javax.swing.JFrame {
         
          //trae el Nombre Concatenado
         try{
-           PreparedStatement ps = null;
-            ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();  
+           conexion = conexiondb.getConexion();
             
             String sql = "SELECT CONCAT(tp.nombre,' ',dp.descripcion)As Descripcion   FROM  detalle_producto dp "
                     + "join tipo_productos tp on tp.id_producto = dp.id_producto "
                     + "where dp.Codigo_producto ="+"'"+Codigo_Producto+"'";
              System.out.println(sql);
-             ps = con.prepareStatement(sql);
+             ps = conexion.prepareStatement(sql);
              rs = ps.executeQuery();
             // id.to(rs.getString("Descripcion"));
             //descripcion=(rs.getString("id_det_prod"));
@@ -728,7 +729,7 @@ public class Precios extends javax.swing.JFrame {
               
             }
             
-            
+           conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }       
