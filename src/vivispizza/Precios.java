@@ -415,6 +415,7 @@ public class Precios extends javax.swing.JFrame {
                 
               
             }
+            
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
         }finally{
