@@ -642,7 +642,7 @@ public class Precios extends javax.swing.JFrame {
                         " LEFT join detalle_producto dp on dp.id_det_prod =p.detalle_Producto\n" +
                         " left  join  proveedores p2 on p2.id_proveedor = p.id_proveedor \n" +
                         " join tipo_productos tp on tp.id_producto = dp.id_producto \n"+
-                        "Order by dp.Codigo_producto";
+                        "Order by p.Detalle_Producto,p.Codigo_producto";
             
             System.out.println(sql);
             ps = con.prepareStatement(sql);
