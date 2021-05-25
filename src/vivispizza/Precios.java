@@ -606,6 +606,7 @@ public class Precios extends javax.swing.JFrame {
          txtprecioventa.setText("");
          this.cmbCodigoProducto.setModel(metodos.codigo_producto());
          this.cmbproveedor.setModel(metodos.proveedor());
+         lblNombreCod_prod.setText("");
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void cmbCodigoProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbCodigoProductoMouseClicked
