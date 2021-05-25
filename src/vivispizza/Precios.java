@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
@@ -29,12 +31,15 @@ public class Precios extends javax.swing.JFrame {
      * Creates new form Precios
      */
     private metodos_sql metodos = new metodos_sql();
+    
     public Precios() {
         initComponents();
         setLocationRelativeTo(null);
         this.cmbCodigoProducto.setModel(metodos.codigo_producto());
         this.cmbproveedor.setModel(metodos.proveedor());
        actualizartabla(); 
+       
+        
     }
 
     /**
@@ -308,7 +313,7 @@ public class Precios extends javax.swing.JFrame {
                 id=(rs.getInt("id_det_prod"));
               
             }        
-            
+          con.close();  
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }
@@ -332,7 +337,7 @@ public class Precios extends javax.swing.JFrame {
               
             }
             
-            
+            con.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }
@@ -379,17 +384,19 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
     }
     private void JListaPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JListaPreciosMouseClicked
-        PreparedStatement ps = null;
-            ResultSet rs = null;
-             try{
-                 conexiondb conn = new conexiondb();
-                 Connection con = conn.getConexion();
-            
+           Connection conexion = null;
+           PreparedStatement ps = null;
+           ResultSet rs = null;
+          // conexiondb conn = new conexiondb();
+           //Connection con = conn.getConexion(); 
+           
+            try{
+            conexion = conexiondb.getConexion();  
             int Fila = JListaPrecios.getSelectedRow();
             String Id_Prod = JListaPrecios.getValueAt(Fila,0).toString();
            // String codigo = JListaPrecios.getValueAt(Fila,1).toString();
             
-            ps = con.prepareStatement("SELECT  dp.id_det_prod,p.descripcion,dp.Codigo_producto ,Precio_compra ,p.Precio_venta,p2.nombre as proveedores\n" +
+            ps = conexion.prepareStatement("SELECT  dp.id_det_prod,p.descripcion,dp.Codigo_producto ,Precio_compra ,p.Precio_venta,p2.nombre as proveedores\n" +
                         "FROM Precios p\n" +
                         " LEFT join detalle_producto dp on dp.id_det_prod =p.detalle_Producto\n" +
                         " left  join  proveedores p2 on p2.id_proveedor = p.id_proveedor \n" +
@@ -408,11 +415,22 @@ public class Precios extends javax.swing.JFrame {
                 
               
             }
-                 
+               // conexion.close(); 
+             //   ps.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
-        }
-        
+        }finally{
+ 
+            if(conexion!=null){
+                try {
+                    conexion.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Precios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+  
+}
+            
         
         
         
@@ -484,7 +502,7 @@ public class Precios extends javax.swing.JFrame {
                 modelo.addRow(filas);               
             }   
            
-            
+        con.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
             
@@ -535,7 +553,7 @@ public class Precios extends javax.swing.JFrame {
             /* Add_Supr_usuario el = new Add_Supr_usuario();
              el.setVisible(true);
              this.dispose();*/
-      
+            con.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
                  
@@ -630,14 +648,17 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoKeyReleased
      //Mostrar Jtable
        public  DefaultTableModel actualizartabla(){
-                    
-              try{
-            DefaultTableModel modelo = new DefaultTableModel();        
-            JListaPrecios.setModel(modelo);
+          //  conexiondb conn = new conexiondb();
+           // Connection conexion1 = conexion.getConexion(); 
+            Connection conexion = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
+              try{
+            conexion = conexiondb.getConexion();
+            DefaultTableModel modelo = new DefaultTableModel();        
+            JListaPrecios.setModel(modelo);
+            
+            
             String sql = "SELECT  dp.id_det_prod,p.descripcion,dp.Codigo_producto ,Precio_compra ,p.Precio_venta,p2.nombre as proveedores\n" +
                         "FROM Precios p\n" +
                         " LEFT join detalle_producto dp on dp.id_det_prod =p.detalle_Producto\n" +
@@ -646,7 +667,7 @@ public class Precios extends javax.swing.JFrame {
                         "Order by p.Detalle_Producto,p.Codigo_producto";
             
             System.out.println(sql);
-            ps = con.prepareStatement(sql);
+            ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             
             ResultSetMetaData rsMd = rs.getMetaData();
@@ -669,11 +690,12 @@ public class Precios extends javax.swing.JFrame {
                 for(int i = 0;i<cantidadColumnas;i++){
                     filas[i]= rs.getObject(i+1);
                }
-                modelo.addRow(filas);               
+                modelo.addRow(filas);   
             } 
+            conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
-        }         
+        }    
         return null;
        }
        

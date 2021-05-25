@@ -426,16 +426,15 @@ public class metodos_sql {
         cmbtipo_prod.addElement("Seleccione tipo");
         ResultSet res = this.consulta("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto ");
         try {
-           
             while (res.next()) {
                 cmbtipo_prod.addElement(res.getString("Codigo_Producto"));
             }
-            res.close();
+            res.close();          
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
-        }
-        return cmbtipo_prod;
+        }  
+        return cmbtipo_prod;    
     }
                 //carga detalle producto
                 public int detalle_producto(String Codigo_producto,String descripcion,int id_producto ) {
@@ -491,6 +490,7 @@ public class metodos_sql {
                 cmbproveedor.addElement(res.getString("nombre"));
             }
             res.close();
+           
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
@@ -514,7 +514,6 @@ public class metodos_sql {
             sentencia_preparada.setString(6,Descripcion); 
             resultado = sentencia_preparada.executeUpdate();
             sentencia_preparada.close();
-            conexion.close();
         } catch (Exception e) {
             System.out.println(e);
         }
