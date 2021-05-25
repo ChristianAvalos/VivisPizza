@@ -375,6 +375,7 @@ public class Precios extends javax.swing.JFrame {
          txtpreciocompra.setText("");
          txtprecioventa.setText("");
          txtcodigo.setText("");
+         lblNombreCod_prod.setText("");
     }//GEN-LAST:event_btnAgregarActionPerformed
     }
     private void JListaPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JListaPreciosMouseClicked
@@ -619,6 +620,7 @@ public class Precios extends javax.swing.JFrame {
 
     private void txtcodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcodigoKeyReleased
     traerNombreCodigo();
+    this.cmbCodigoProducto.setModel(metodos.codigo_producto());
         
         
         
