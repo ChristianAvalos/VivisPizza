@@ -270,6 +270,7 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        Connection conexion =null; 
         String Codigo_producto=null;
         String proveedor;
         String nombre=null;
@@ -296,14 +297,14 @@ public class Precios extends javax.swing.JFrame {
         
         //trae la descripcion concatenada del  Codigo_producto 
         try{
-           PreparedStatement ps = null;
+            conexion = conexiondb.getConexion();
+            PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();  
+               
             
             String sql = "SELECT tp.nombre ,dp.descripcion,dp.id_det_prod FROM detalle_producto dp join tipo_productos tp  on tp.id_producto = dp.id_producto  Where dp.Codigo_producto= "+"'"+Codigo_producto+"'";
              System.out.println(sql);
-             ps = con.prepareStatement(sql);
+             ps = conexion.prepareStatement(sql);
              rs = ps.executeQuery();
             // id.to(rs.getString("Descripcion"));
             //descripcion=(rs.getString("id_det_prod"));
@@ -313,7 +314,7 @@ public class Precios extends javax.swing.JFrame {
                 id=(rs.getInt("id_det_prod"));
               
             }        
-          con.close();  
+          conexion.close();  
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }
@@ -323,12 +324,12 @@ public class Precios extends javax.swing.JFrame {
         try{
            PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();  
+            conexion = conexiondb.getConexion();
+            
             
             String sql = "SELECT id_proveedor FROM proveedores Where nombre= "+"'"+proveedor+"'";
              System.out.println(sql);
-             ps = con.prepareStatement(sql);
+             ps = conexion.prepareStatement(sql);
              rs = ps.executeQuery();
             // id.to(rs.getString("Descripcion"));
             //descripcion=(rs.getString("id_det_prod"));
@@ -337,7 +338,7 @@ public class Precios extends javax.swing.JFrame {
               
             }
             
-            con.close();
+            conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }
@@ -387,8 +388,6 @@ public class Precios extends javax.swing.JFrame {
            Connection conexion = null;
            PreparedStatement ps = null;
            ResultSet rs = null;
-          // conexiondb conn = new conexiondb();
-           //Connection con = conn.getConexion(); 
            
             try{
             conexion = conexiondb.getConexion();  
@@ -505,6 +504,14 @@ public class Precios extends javax.swing.JFrame {
         } catch(SQLException ex) {
             System.err.println(ex.toString());
             
+        }finally{
+           if(conexion!=null){
+               try {
+                   conexion.close();
+               } catch (SQLException ex) {
+                   Logger.getLogger(Precios.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           } 
         }
        
                 
@@ -521,7 +528,8 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-          PreparedStatement ps = null;
+         Connection conexion = null;  
+        PreparedStatement ps = null;
           
           if ("".equals(txtpreciocompra.getText())){
             JOptionPane.showMessageDialog(this, "Completar los campos por favor");  
@@ -533,14 +541,13 @@ public class Precios extends javax.swing.JFrame {
               }else{
   
              try{
+             conexion = conexiondb.getConexion();     
                  
-                 conexiondb conn = new conexiondb();
-                 Connection con = conn.getConexion();
             
             int Fila = JListaPrecios.getSelectedRow();
             String nombre = JListaPrecios.getValueAt(Fila,0).toString();
             
-            ps = con.prepareStatement("delete FROM  Precios where Detalle_producto=?");
+            ps = conexion.prepareStatement("delete FROM  Precios where Detalle_producto=?");
             ps.setString(1, nombre);
             ps.execute();
             JOptionPane.showMessageDialog(this, "Datos eliminados");
@@ -553,7 +560,7 @@ public class Precios extends javax.swing.JFrame {
             /* Add_Supr_usuario el = new Add_Supr_usuario();
              el.setVisible(true);
              this.dispose();*/
-            con.close();
+            conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
                  
@@ -570,6 +577,7 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        Connection conexion = null; 
         String proveedor;
         int id=-1;
         int id_proveedor=-1;
@@ -584,14 +592,15 @@ public class Precios extends javax.swing.JFrame {
         proveedor=cmbproveedor.getItemAt(cmbproveedor.getSelectedIndex());
         //trae el valor de proveedor
         try{
-           PreparedStatement ps = null;
+            conexion = conexiondb.getConexion();
+            PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();  
+            
+             
             
             String sql = "SELECT id_proveedor FROM proveedores Where nombre= "+"'"+proveedor+"'";
              System.out.println(sql);
-             ps = con.prepareStatement(sql);
+             ps = conexion.prepareStatement(sql);
              rs = ps.executeQuery();
             // id.to(rs.getString("Descripcion"));
             //descripcion=(rs.getString("id_det_prod"));
@@ -599,10 +608,20 @@ public class Precios extends javax.swing.JFrame {
                 id_proveedor=(rs.getInt("id_proveedor"));
               
             }
-            
-            
+          ps.close();
+          rs.close();
+          conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
+        }finally{
+            if(conexion!=null){
+                try {
+                    conexion.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Precios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         }
         
         if ("".equals(txtpreciocompra.getText()) && txtprecioventa.equals("")/*&&txtinconveniente.equals("")&&txtsolucion.equals("")*/) {
@@ -704,6 +723,7 @@ public class Precios extends javax.swing.JFrame {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection conexion = null;
+        conexion = conexiondb.getConexion();
          
         if (!"Seleccione tipo".equals(cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex()))){
             Codigo_Producto = cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex());
@@ -713,7 +733,7 @@ public class Precios extends javax.swing.JFrame {
         
          //trae el Nombre Concatenado
         try{
-           conexion = conexiondb.getConexion();
+           
             
             String sql = "SELECT CONCAT(tp.nombre,' ',dp.descripcion)As Descripcion   FROM  detalle_producto dp "
                     + "join tipo_productos tp on tp.id_producto = dp.id_producto "
@@ -727,7 +747,8 @@ public class Precios extends javax.swing.JFrame {
                 Nombre=(rs.getString("Descripcion"));
               
             }
-            
+            ps.close();
+            rs.close();
            conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  

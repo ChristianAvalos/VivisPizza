@@ -220,7 +220,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtusuariosMouseClicked
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-        // TODO add your handling code here:
+          Connection conexion = null;
           String campo = txtnombre.getText();
                 String where = "";
                 if (!"".equals(campo)){
@@ -229,17 +229,16 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
                 }
         
         try{
-           DefaultTableModel modelo = new DefaultTableModel();
+            conexion = conexiondb.getConexion();
+            DefaultTableModel modelo = new DefaultTableModel();
             jtusuarios.setModel(modelo);
             PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
             
             
             String sql = "SELECT nombre, password FROM Usuarios "+where;
             System.out.println(sql);
-            ps = con.prepareStatement(sql);
+            ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             
             ResultSetMetaData rsMd = rs.getMetaData();
@@ -261,7 +260,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
                 modelo.addRow(filas);               
             }   
            
-            
+            conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
             
@@ -274,20 +273,18 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
 
           //Mostrar Jtable
        public  DefaultTableModel actualizartabla(){
-                    
+           Connection conexion = null;     
                     try{
+           conexion = conexiondb.getConexion(); 
            DefaultTableModel modelo = new DefaultTableModel();
            
            jtusuarios.setModel(modelo);
             PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
-            
-            
+       
             String sql = "SELECT nombre, password FROM Usuarios ";
             System.out.println(sql);
-            ps = con.prepareStatement(sql);
+            ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             
             ResultSetMetaData rsMd = rs.getMetaData();
@@ -308,6 +305,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
                }
                 modelo.addRow(filas);               
             } 
+            conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
         }         
@@ -318,40 +316,28 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
     
     
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+          Connection conexion = null;   
           PreparedStatement ps = null;
              
              try{
-                 
-                 conexiondb conn = new conexiondb();
-                 Connection con = conn.getConexion();
-            
+               conexion = conexiondb.getConexion();  
             int Fila = jtusuarios.getSelectedRow();
             String nombre = jtusuarios.getValueAt(Fila,0).toString();
             
-            ps = con.prepareStatement("DELETE FROM Usuarios WHERE nombre=?");
+            ps = conexion.prepareStatement("DELETE FROM Usuarios WHERE nombre=?");
             ps.setString(1, nombre);
             ps.execute();
             JOptionPane.showMessageDialog(this, "Datos eliminados");
-             txtnombre.setText("");
-             txtpassword.setText("");
-             actualizartabla();
-            /* Add_Supr_usuario el = new Add_Supr_usuario();
-             el.setVisible(true);
-             this.dispose();*/
-             
-             
             
-            
-            
-                 
+               conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
-                 
-        }
-        
-        
-        
-        
+                
+            }
+             txtnombre.setText("");
+             txtpassword.setText("");
+             actualizartabla(); 
+    
     }//GEN-LAST:event_btneliminarActionPerformed
 
     /**

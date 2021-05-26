@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -429,11 +431,20 @@ public class metodos_sql {
             while (res.next()) {
                 cmbtipo_prod.addElement(res.getString("Codigo_Producto"));
             }
-            res.close();          
+            res.close(); 
+            
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
-        }  
+        } finally{
+            if(conexion!=null){
+                try {
+                    conexion.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(metodos_sql.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
         return cmbtipo_prod;    
     }
                 //carga detalle producto
