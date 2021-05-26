@@ -647,8 +647,6 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoKeyReleased
      //Mostrar Jtable
        public  DefaultTableModel actualizartabla(){
-          //  conexiondb conn = new conexiondb();
-           // Connection conexion1 = conexion.getConexion(); 
             Connection conexion = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
