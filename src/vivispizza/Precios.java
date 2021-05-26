@@ -438,7 +438,7 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_JListaPreciosMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+                Connection conexion = null;
                 String tipoproducto = null;
                 String detalleprod = null;
                 String proveedor = null;
@@ -459,12 +459,12 @@ public class Precios extends javax.swing.JFrame {
                 
         
         try{
+           conexion = conexiondb.getConexion(); 
            DefaultTableModel modelo = new DefaultTableModel();
             JListaPrecios.setModel(modelo);
             PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
+            
             
            String sql = "SELECT  dp.id_det_prod,p.descripcion,dp.Codigo_producto ,Precio_compra ,p.Precio_venta,p2.nombre as proveedores\n" +
                         "FROM Precios p\n" +
@@ -475,7 +475,7 @@ public class Precios extends javax.swing.JFrame {
                         "Order by dp.Codigo_producto";
             
             System.out.println(sql);
-            ps = con.prepareStatement(sql);
+            ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             
             ResultSetMetaData rsMd = rs.getMetaData();
@@ -501,11 +501,12 @@ public class Precios extends javax.swing.JFrame {
                 modelo.addRow(filas);               
             }   
            
-        con.close();
+        conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
             
         }
+       
                 
                 
           txtpreciocompra.setText("");
