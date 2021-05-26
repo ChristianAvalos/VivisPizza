@@ -26,6 +26,7 @@ import static vivispizza.login.texto;
  * @author christian
  */
 public class Precios extends javax.swing.JFrame {
+public Connection conexion = null;
 
     /**
      * Creates new form Precios
@@ -34,10 +35,12 @@ public class Precios extends javax.swing.JFrame {
     
     public Precios() {
         initComponents();
+        conexion = conexiondb.getConexion();
         setLocationRelativeTo(null);
         this.cmbCodigoProducto.setModel(metodos.codigo_producto());
         this.cmbproveedor.setModel(metodos.proveedor());
-       actualizartabla(); 
+        actualizartabla(); 
+       
        
         
     }
@@ -270,7 +273,7 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Connection conexion =null; 
+       // Connection conexion =null; 
         String Codigo_producto=null;
         String proveedor;
         String nombre=null;
@@ -297,7 +300,7 @@ public class Precios extends javax.swing.JFrame {
         
         //trae la descripcion concatenada del  Codigo_producto 
         try{
-            conexion = conexiondb.getConexion();
+          //  conexion = conexiondb.getConexion();
             PreparedStatement ps = null;
             ResultSet rs = null;
                
@@ -314,7 +317,7 @@ public class Precios extends javax.swing.JFrame {
                 id=(rs.getInt("id_det_prod"));
               
             }        
-          conexion.close();  
+         // conexion.close();  
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }
@@ -324,7 +327,7 @@ public class Precios extends javax.swing.JFrame {
         try{
            PreparedStatement ps = null;
             ResultSet rs = null;
-            conexion = conexiondb.getConexion();
+          //  conexion = conexiondb.getConexion();
             
             
             String sql = "SELECT id_proveedor FROM proveedores Where nombre= "+"'"+proveedor+"'";
@@ -338,7 +341,7 @@ public class Precios extends javax.swing.JFrame {
               
             }
             
-            conexion.close();
+           // conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }
@@ -385,12 +388,12 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
     }
     private void JListaPreciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JListaPreciosMouseClicked
-           Connection conexion = null;
+          // Connection conexion = null;
            PreparedStatement ps = null;
            ResultSet rs = null;
            
             try{
-            conexion = conexiondb.getConexion();  
+          //  conexion = conexiondb.getConexion();  
             int Fila = JListaPrecios.getSelectedRow();
             String Id_Prod = JListaPrecios.getValueAt(Fila,0).toString();
            // String codigo = JListaPrecios.getValueAt(Fila,1).toString();
@@ -420,11 +423,8 @@ public class Precios extends javax.swing.JFrame {
         }finally{
  
             if(conexion!=null){
-                try {
-                    conexion.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Precios.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                // conexion.close();
+
             }
   
 }
@@ -437,7 +437,7 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_JListaPreciosMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-                Connection conexion = null;
+               // Connection conexion = null;
                 String tipoproducto = null;
                 String detalleprod = null;
                 String proveedor = null;
@@ -458,7 +458,7 @@ public class Precios extends javax.swing.JFrame {
                 
         
         try{
-           conexion = conexiondb.getConexion(); 
+          // conexion = conexiondb.getConexion(); 
            DefaultTableModel modelo = new DefaultTableModel();
             JListaPrecios.setModel(modelo);
             PreparedStatement ps = null;
@@ -500,17 +500,14 @@ public class Precios extends javax.swing.JFrame {
                 modelo.addRow(filas);               
             }   
            
-        conexion.close();
+       // conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
             
         }finally{
            if(conexion!=null){
-               try {
-                   conexion.close();
-               } catch (SQLException ex) {
-                   Logger.getLogger(Precios.class.getName()).log(Level.SEVERE, null, ex);
-               }
+               // conexion.close();
+
            } 
         }
        
@@ -528,7 +525,7 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         Connection conexion = null;  
+        // Connection conexion = null;  
         PreparedStatement ps = null;
           
           if ("".equals(txtpreciocompra.getText())){
@@ -541,7 +538,7 @@ public class Precios extends javax.swing.JFrame {
               }else{
   
              try{
-             conexion = conexiondb.getConexion();     
+             //conexion = conexiondb.getConexion();     
                  
             
             int Fila = JListaPrecios.getSelectedRow();
@@ -555,12 +552,13 @@ public class Precios extends javax.swing.JFrame {
              txtprecioventa.setText("");
              this.cmbCodigoProducto.setModel(metodos.codigo_producto());
              this.cmbproveedor.setModel(metodos.proveedor());
-             
+            
+                
              actualizartabla();
             /* Add_Supr_usuario el = new Add_Supr_usuario();
              el.setVisible(true);
              this.dispose();*/
-            conexion.close();
+           // conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
                  
@@ -576,8 +574,9 @@ public class Precios extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        Connection conexion = null; 
+       // Connection conexion = null; 
         String proveedor;
         int id=-1;
         int id_proveedor=-1;
@@ -592,7 +591,7 @@ public class Precios extends javax.swing.JFrame {
         proveedor=cmbproveedor.getItemAt(cmbproveedor.getSelectedIndex());
         //trae el valor de proveedor
         try{
-            conexion = conexiondb.getConexion();
+           // conexion = conexiondb.getConexion();
             PreparedStatement ps = null;
             ResultSet rs = null;
             
@@ -610,16 +609,13 @@ public class Precios extends javax.swing.JFrame {
             }
           ps.close();
           rs.close();
-          conexion.close();
+         // conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }finally{
             if(conexion!=null){
-                try {
-                    conexion.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Precios.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                // conexion.close();
+
             }
             
         }
@@ -667,11 +663,11 @@ public class Precios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtcodigoKeyReleased
      //Mostrar Jtable
        public  DefaultTableModel actualizartabla(){
-            Connection conexion = null;
+           // Connection conexion = null;
             PreparedStatement ps = null;
             ResultSet rs = null;
               try{
-            conexion = conexiondb.getConexion();
+          //  conexion = conexiondb.getConexion();
             DefaultTableModel modelo = new DefaultTableModel();        
             JListaPrecios.setModel(modelo);
             
@@ -709,7 +705,7 @@ public class Precios extends javax.swing.JFrame {
                }
                 modelo.addRow(filas);   
             } 
-            conexion.close();
+          //  conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
         }    
@@ -722,8 +718,8 @@ public class Precios extends javax.swing.JFrame {
         String Nombre=null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        Connection conexion = null;
-        conexion = conexiondb.getConexion();
+        //Connection conexion = null;
+      //  conexion = conexiondb.getConexion();
          
         if (!"Seleccione tipo".equals(cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex()))){
             Codigo_Producto = cmbCodigoProducto.getItemAt(cmbCodigoProducto.getSelectedIndex());
@@ -749,14 +745,14 @@ public class Precios extends javax.swing.JFrame {
             }
             ps.close();
             rs.close();
-           conexion.close();
+         //  conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }       
          lblNombreCod_prod.setText(Nombre);            
                
        }
-    
+
     
     /**
      * @param args the command line arguments

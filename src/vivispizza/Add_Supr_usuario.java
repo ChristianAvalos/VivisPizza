@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import metodos_sql.Encriptar;
@@ -23,6 +25,7 @@ import static vivispizza.login.texto;
  */
 public class Add_Supr_usuario extends javax.swing.JFrame {
         Encriptar enc = new Encriptar();
+        public Connection conexion=null;
     /**
      * Creates new form Add_Supr_usuario
      */
@@ -30,6 +33,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
         initComponents();
        setLocationRelativeTo(null);
        actualizartabla();
+      
     }
       metodos_sql metodos = new metodos_sql();
 
@@ -188,12 +192,17 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
            Menu_principal ventana = new Menu_principal();
             ventana.labelusuario.setText(texto.toUpperCase());
                 ventana.setVisible(true);
+            try {
+                conexion.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Add_Supr_usuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 this.dispose();
     }//GEN-LAST:event_btnregresarActionPerformed
 
     private void jtusuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtusuariosMouseClicked
         // TODO add your handling code here:
-        Connection conexion = null; 
+        //Connection conexion = null; 
         PreparedStatement ps = null;
             ResultSet rs = null;
              try{
@@ -220,7 +229,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtusuariosMouseClicked
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
-          Connection conexion = null;
+          //Connection conexion = null;
           String campo = txtnombre.getText();
                 String where = "";
                 if (!"".equals(campo)){
@@ -273,7 +282,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
 
           //Mostrar Jtable
        public  DefaultTableModel actualizartabla(){
-           Connection conexion = null;     
+           //Connection conexion = null;     
                     try{
            conexion = conexiondb.getConexion(); 
            DefaultTableModel modelo = new DefaultTableModel();
@@ -316,7 +325,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
     
     
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-          Connection conexion = null;   
+          //Connection conexion = null;   
           PreparedStatement ps = null;
              
              try{

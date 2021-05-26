@@ -22,13 +22,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author christian
  */
+
 public class metodos_sql {
+    
 
     public static conexiondb conexion = new conexiondb();
     public static PreparedStatement sentencia_preparada;
     public static ResultSet resultado;
     public static String sql;
     public static int resultado_numero = 0;
+    
     //Este carga usuarios para el login 
     public int guardar(String usuario, String password) {
         int resultado = 0;
@@ -423,28 +426,22 @@ public class metodos_sql {
                 
              //listar productos de vivis pizza
                 public DefaultComboBoxModel codigo_producto() {
-        Connection conexion = null;
+       // Connection conexion = null;
         DefaultComboBoxModel cmbtipo_prod = new DefaultComboBoxModel();
         cmbtipo_prod.addElement("Seleccione tipo");
         ResultSet res = this.consulta("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto ");
         try {
+            
             while (res.next()) {
                 cmbtipo_prod.addElement(res.getString("Codigo_Producto"));
             }
             res.close(); 
-            
+             
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
-        } finally{
-            if(conexion!=null){
-                try {
-                    conexion.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(metodos_sql.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+        } 
+        
         return cmbtipo_prod;    
     }
                 //carga detalle producto
@@ -491,7 +488,7 @@ public class metodos_sql {
                 
              //listar proveedor de vivis pizza
                 public DefaultComboBoxModel proveedor() {
-        Connection conexion = null;
+       // Connection conexion = null;
         DefaultComboBoxModel cmbproveedor = new DefaultComboBoxModel();
         cmbproveedor.addElement("Seleccione tipo");
         ResultSet res = this.consulta("select * FROM  proveedores order by id_proveedor");
@@ -525,6 +522,7 @@ public class metodos_sql {
             sentencia_preparada.setString(6,Descripcion); 
             resultado = sentencia_preparada.executeUpdate();
             sentencia_preparada.close();
+            conexion.close();
         } catch (Exception e) {
             System.out.println(e);
         }
