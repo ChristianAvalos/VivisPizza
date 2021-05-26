@@ -252,20 +252,21 @@ public class Productos extends javax.swing.JFrame {
         //id_producto=cmbtipo_prod.getSelectedIndex();
         id_producto=cmbtipo_prod.getItemAt(cmbtipo_prod.getSelectedIndex());
         String codigo=null;
+         Connection conexion = null;
         
         //trae los valores del cmbobos tipo de producto
         try{
+             conexion = conexiondb.getConexion();
            PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();  
+             
             
             String sql = "SELECT IFNULL(MAX(cp.Numero),-1)as Numero,tp.id_producto FROM tipo_productos tp \n"
                     + "left join Cod_Producto cp on cp.id_tipo_prod =tp.id_producto \n"
                     + "Where tp.nombre= '"+id_producto+"'\n"
                     + "GROUP by tp.id_producto ";
              System.out.println(sql);
-             ps = con.prepareStatement(sql);
+             ps = conexion.prepareStatement(sql);
              rs = ps.executeQuery();
         
             while (rs.next()){
@@ -273,7 +274,7 @@ public class Productos extends javax.swing.JFrame {
                 id_tipo=(rs.getInt("id_producto"));
             }
             
-            
+           conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
             
@@ -314,6 +315,7 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnagregarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        Connection conexion = null;
         String campo = txtdescripcion.getText();
         String campo2 = cmbtipo_prod.getItemAt(cmbtipo_prod.getSelectedIndex());
                 String where = "";
@@ -323,17 +325,15 @@ public class Productos extends javax.swing.JFrame {
                 }
         
         try{
-           DefaultTableModel modelo = new DefaultTableModel();
+            conexion = conexiondb.getConexion();
+            DefaultTableModel modelo = new DefaultTableModel();
             jProductos.setModel(modelo);
             PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
-            
-            
+
             String sql = "SELECT dp.id_det_prod,dp.Codigo_producto,tp.Nombre,dp.descripcion FROM detalle_producto dp left join tipo_productos tp on dp.id_producto=tp.id_producto "+where+"ORDER by dp.id_producto";
             System.out.println(sql);
-            ps = con.prepareStatement(sql);
+            ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             
             ResultSetMetaData rsMd = rs.getMetaData();
@@ -357,7 +357,7 @@ public class Productos extends javax.swing.JFrame {
                 modelo.addRow(filas);               
             }   
            
-            
+         conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
             
@@ -369,17 +369,16 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void jProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jProductosMouseClicked
-        // TODO add your handling code here:
-       PreparedStatement ps = null;
+            Connection conexion = null;
+            PreparedStatement ps = null;
             ResultSet rs = null;
              try{
-                 conexiondb conn = new conexiondb();
-                 Connection con = conn.getConexion();
+              conexion = conexiondb.getConexion();   
             
             int Fila = jProductos.getSelectedRow();
             String nombre = jProductos.getValueAt(Fila,0).toString();
             
-            ps = con.prepareStatement("SELECT dp.id_det_prod,dp.Codigo_producto,tp.Nombre,dp.descripcion FROM detalle_producto dp left join tipo_productos tp on dp.id_producto=tp.id_producto WHERE dp.id_det_prod=?");
+            ps = conexion.prepareStatement("SELECT dp.id_det_prod,dp.Codigo_producto,tp.Nombre,dp.descripcion FROM detalle_producto dp left join tipo_productos tp on dp.id_producto=tp.id_producto WHERE dp.id_det_prod=?");
             ps.setString(1, nombre);
             rs = ps.executeQuery();
             while (rs.next()){
@@ -393,7 +392,7 @@ public class Productos extends javax.swing.JFrame {
                 //cmbtipo_prod.
                // txtpassword.setText(rs.getString("Password"));
             }
-                 
+              conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
         }
@@ -413,7 +412,8 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbtipo_prodActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-                  PreparedStatement ps = null;
+          Connection conexion = null;
+          PreparedStatement ps = null;
           PreparedStatement ps2 = null;
           
           if ("".equals(txtdescripcion.getText())){
@@ -426,15 +426,12 @@ public class Productos extends javax.swing.JFrame {
               }else{
   
              try{
-                 
-                 conexiondb conn = new conexiondb();
-                 Connection con = conn.getConexion();
-            
+                 conexion = conexiondb.getConexion();
             int Fila = jProductos.getSelectedRow();
             String nombre = jProductos.getValueAt(Fila,0).toString();
             String Codigo_Prod = jProductos.getValueAt(Fila,1).toString();
-            ps = con.prepareStatement("DELETE FROM detalle_producto WHERE id_det_prod=?");
-            ps2 = con.prepareStatement("DELETE FROM Cod_Producto WHERE Codigo_Producto=?");
+            ps = conexion.prepareStatement("DELETE FROM detalle_producto WHERE id_det_prod=?");
+            ps2 = conexion.prepareStatement("DELETE FROM Cod_Producto WHERE Codigo_Producto=?");
             ps.setString(1, nombre);
             ps2.setString(1, Codigo_Prod);
             ps.execute();
@@ -448,7 +445,7 @@ public class Productos extends javax.swing.JFrame {
             /* Add_Supr_usuario el = new Add_Supr_usuario();
              el.setVisible(true);
              this.dispose();*/
-      
+                conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
                  
@@ -478,6 +475,7 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTipoActionPerformed
+        Connection conexion = null;
         String Tipo_Producto;
         Tipo_Producto=cmbtipo_prod.getItemAt(cmbtipo_prod.getSelectedIndex());
         if(!"Seleccione tipo".equals(Tipo_Producto)){
@@ -485,14 +483,12 @@ public class Productos extends javax.swing.JFrame {
             if(R==0){
                PreparedStatement ps = null;
              try{
-                 
-                 conexiondb conn = new conexiondb();
-                 Connection con = conn.getConexion();
-                 ps = con.prepareStatement("delete from tipo_productos WHERE nombre = '"+Tipo_Producto+"'");
+                 conexion = conexiondb.getConexion();
+                 ps = conexion.prepareStatement("delete from tipo_productos WHERE nombre = '"+Tipo_Producto+"'");
                  ps.execute();
                  JOptionPane.showMessageDialog(this, "Datos eliminados");
                  this.cmbtipo_prod.setModel(metodos.tipo_producto());
-                 
+                 conexion.close();
                  } catch (SQLException ex) {
                  System.out.println(ex.toString());
                  JOptionPane.showMessageDialog(this, "No se puedo eliminar");
@@ -505,20 +501,18 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarTipoActionPerformed
      //Mostrar Jtable
        public  DefaultTableModel actualizartabla(){
-                    
+             Connection conexion = null;       
                     try{
+           conexion = conexiondb.getConexion();
            DefaultTableModel modelo = new DefaultTableModel();
            
            jProductos.setModel(modelo);
             PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
-            
-            
+             
             String sql = "SELECT dp.id_det_prod,dp.Codigo_producto,tp.Nombre,dp.descripcion FROM detalle_producto dp left join tipo_productos tp on tp.id_producto=dp.id_producto ORDER by dp.id_producto ";
             System.out.println(sql);
-            ps = con.prepareStatement(sql);
+            ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             
             ResultSetMetaData rsMd = rs.getMetaData();
@@ -541,6 +535,7 @@ public class Productos extends javax.swing.JFrame {
                }
                 modelo.addRow(filas);               
             } 
+            conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());
         }         

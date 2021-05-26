@@ -569,26 +569,26 @@ DefaultTableModel modelo = new DefaultTableModel();
     public static String proveedor=null;
     public void TraerDatos(){
        String Codigo_Producto=null;
-        String Nombre=null;
-        String Precio=null;
-       
+       String Nombre=null;
+       String Precio=null;
+       Connection conexion = null;
         
        Codigo_Producto = txtcodigo.getText();
       
       
          //trae el Nombre Concatenado
         try{
+           conexion = conexiondb.getConexion();
            PreparedStatement ps = null;
             ResultSet rs = null;
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();  
+            
             
             String sql = "SELECT CONCAT(tp.nombre,' ',dp.descripcion)As Descripcion,p.Precio_venta FROM  detalle_producto dp \n"
                     + "join tipo_productos tp on tp.id_producto = dp.id_producto \n"
                     +"JOIN  Precios p on p.Detalle_Producto = dp.id_det_prod \n "
                     + "where dp.Codigo_producto ="+"'"+Codigo_Producto+"' and p.id_proveedor=ifnull("+proveedor+",p.id_proveedor)";
              System.out.println(sql);
-             ps = con.prepareStatement(sql);
+             ps = conexion.prepareStatement(sql);
              rs = ps.executeQuery();
             // id.to(rs.getString("Descripcion"));
             //descripcion=(rs.getString("id_det_prod"));
@@ -597,7 +597,7 @@ DefaultTableModel modelo = new DefaultTableModel();
                 Precio=(rs.getString("Precio_venta"));
             }
             
-            
+           conexion.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
         }       

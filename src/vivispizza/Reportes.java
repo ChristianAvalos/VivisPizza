@@ -56,7 +56,7 @@ private metodos_sql metodos = new metodos_sql();
     private void initComponents() {
 
         btnRegresar = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        btnventas = new javax.swing.JButton();
         JFechaInicio = new com.toedter.calendar.JDateChooser();
         JFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
@@ -74,10 +74,10 @@ private metodos_sql metodos = new metodos_sql();
             }
         });
 
-        jButton1.setText("Ventas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnventas.setText("Ventas");
+        btnventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnventasActionPerformed(evt);
             }
         });
 
@@ -114,7 +114,7 @@ private metodos_sql metodos = new metodos_sql();
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnventas)
                                 .addGap(67, 67, 67)
                                 .addComponent(btnListado_Productos))
                             .addGroup(layout.createSequentialGroup()
@@ -141,7 +141,7 @@ private metodos_sql metodos = new metodos_sql();
                     .addComponent(JFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnventas)
                     .addComponent(btnListado_Productos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
@@ -158,7 +158,7 @@ private metodos_sql metodos = new metodos_sql();
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnventasActionPerformed
             SimpleDateFormat dformart=new SimpleDateFormat("dd/MM/yyyy");
             String fecha = dformart.format(JFechaInicio.getDate());
             ParseFecha(fecha);
@@ -166,11 +166,10 @@ private metodos_sql metodos = new metodos_sql();
             String fecha2 = dformart.format(JFechaFin.getDate());
             ParseFecha(fecha2);
             java.sql.Date FechaFin = new java.sql.Date(fechaDate.getTime());
-           
+           Connection conexion = null;
            try {     
         
-            conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion(); 
+            conexion = conexiondb.getConexion();
             JasperReport reporte = null;
             //Este path seria para linux
             String path = "/mnt/2BB12D737F92C9C5/software vivis pizza/vivispizza/src/Reportes/Reportes_Ventas.jasper";
@@ -184,7 +183,7 @@ private metodos_sql metodos = new metodos_sql();
             
             reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
         
-            JasperPrint jprint = JasperFillManager.fillReport(path,parametro,con);
+            JasperPrint jprint = JasperFillManager.fillReport(path,parametro,conexion);
                         
             JasperViewer view = new JasperViewer(jprint,false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -193,7 +192,7 @@ private metodos_sql metodos = new metodos_sql();
     } catch (JRException ex) {
         Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
     }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnventasActionPerformed
 
     private void btnListado_ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListado_ProductosActionPerformed
          try {     
@@ -274,7 +273,7 @@ private metodos_sql metodos = new metodos_sql();
     private com.toedter.calendar.JDateChooser JFechaInicio;
     private javax.swing.JButton btnListado_Productos;
     private javax.swing.JToggleButton btnRegresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnventas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

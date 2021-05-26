@@ -193,23 +193,22 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
 
     private void jtusuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtusuariosMouseClicked
         // TODO add your handling code here:
-         PreparedStatement ps = null;
+        Connection conexion = null; 
+        PreparedStatement ps = null;
             ResultSet rs = null;
              try{
-                 conexiondb conn = new conexiondb();
-            Connection con = conn.getConexion();
-            
+           conexion = conexiondb.getConexion();          
             int Fila = jtusuarios.getSelectedRow();
             String nombre = jtusuarios.getValueAt(Fila,0).toString();
             
-            ps = con.prepareStatement("SELECT nombre,password FROM Usuarios WHERE nombre=?");
+            ps = conexion.prepareStatement("SELECT nombre,password FROM Usuarios WHERE nombre=?");
             ps.setString(1, nombre);
             rs = ps.executeQuery();
             while (rs.next()){
                 txtnombre.setText(rs.getString("Nombre"));
                 txtpassword.setText(rs.getString("Password"));
             }
-                 
+              conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
         }
