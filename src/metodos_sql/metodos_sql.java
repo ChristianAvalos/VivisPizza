@@ -406,17 +406,22 @@ public class metodos_sql {
         return resultado;
     }
              //listar productos de vivis pizza
-                public DefaultComboBoxModel tipo_producto() {
+        public DefaultComboBoxModel tipo_producto() {
         Connection conexion = null;
         DefaultComboBoxModel cmbtipo_prod = new DefaultComboBoxModel();
         cmbtipo_prod.addElement("Seleccione tipo");
-        ResultSet res = this.consulta("Select * from tipo_productos order by id_producto");
+        String sentencia_guardar = ("Select * from tipo_productos order by id_producto");
+
         try {
-           
-            while (res.next()) {
-                cmbtipo_prod.addElement(res.getString("nombre"));
+            conexion = conexiondb.getConexion();
+            sentencia_preparada = (PreparedStatement) conexion.prepareStatement(sentencia_guardar);
+            resultado = sentencia_preparada.executeQuery();
+           while (resultado.next()) {
+                cmbtipo_prod.addElement(resultado.getString("nombre"));
             }
-            res.close();
+           resultado.close();
+           conexion.close();
+            
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
@@ -426,17 +431,27 @@ public class metodos_sql {
                 
              //listar productos de vivis pizza
                 public DefaultComboBoxModel codigo_producto() {
-       // Connection conexion = null;
+        Connection conexion = null;
         DefaultComboBoxModel cmbtipo_prod = new DefaultComboBoxModel();
         cmbtipo_prod.addElement("Seleccione tipo");
-        ResultSet res = this.consulta("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto ");
+         String sentencia_guardar = ("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto");
+
+        try {
+            conexion = conexiondb.getConexion();
+            sentencia_preparada = (PreparedStatement) conexion.prepareStatement(sentencia_guardar);
+            resultado = sentencia_preparada.executeQuery();
+           while (resultado.next()) {
+                cmbtipo_prod.addElement(resultado.getString("Codigo_Producto"));
+            }
+           resultado.close();
+           conexion.close(); 
+       /* ResultSet res = this.consulta("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto ");
         try {
             
             while (res.next()) {
                 cmbtipo_prod.addElement(res.getString("Codigo_Producto"));
             }
-            res.close(); 
-             
+            res.close(); */
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
@@ -468,17 +483,30 @@ public class metodos_sql {
          
     } 
       //listar detalles productos de vivis pizza
-                public DefaultComboBoxModel detalle_producto() {
+                public  DefaultComboBoxModel detalle_producto() {
         Connection conexion = null;
         DefaultComboBoxModel cmbDetalleProducto = new DefaultComboBoxModel();
         cmbDetalleProducto.addElement("Seleccione tipo");
-        ResultSet res = this.consulta("Select * from detalle_producto order by id_producto");
+        String sentencia_guardar = ("Select * from detalle_producto order by id_producto");
+        
+        
+        try {
+            conexion = conexiondb.getConexion();
+            sentencia_preparada = (PreparedStatement) conexion.prepareStatement(sentencia_guardar);
+            resultado = sentencia_preparada.executeQuery();
+           while (resultado.next()) {
+                cmbDetalleProducto.addElement(resultado.getString("descripcion"));
+            }
+           resultado.close();
+           conexion.close();
+
+       /* ResultSet res = this.consulta("Select * from detalle_producto order by id_producto");
         try {
            
             while (res.next()) {
                 cmbDetalleProducto.addElement(res.getString("descripcion"));
             }
-            res.close();
+            res.close();*/
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
 
@@ -488,16 +516,28 @@ public class metodos_sql {
                 
              //listar proveedor de vivis pizza
                 public DefaultComboBoxModel proveedor() {
-       // Connection conexion = null;
+        Connection conexion = null;
         DefaultComboBoxModel cmbproveedor = new DefaultComboBoxModel();
         cmbproveedor.addElement("Seleccione tipo");
-        ResultSet res = this.consulta("select * FROM  proveedores order by id_proveedor");
+         String sentencia_guardar = ("select * FROM  proveedores order by id_proveedor");
+        
+        
+        try {
+            conexion = conexiondb.getConexion();
+            sentencia_preparada = (PreparedStatement) conexion.prepareStatement(sentencia_guardar);
+            resultado = sentencia_preparada.executeQuery();
+           while (resultado.next()) {
+                cmbproveedor.addElement(resultado.getString("nombre"));
+            }
+           resultado.close();
+           conexion.close();
+        /*ResultSet res = this.consulta("select * FROM  proveedores order by id_proveedor");
         try {
            
             while (res.next()) {
                 cmbproveedor.addElement(res.getString("nombre"));
             }
-            res.close();
+            res.close();*/
            
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -627,6 +667,6 @@ public class metodos_sql {
         }
         return resultado;
     }
-            
+         
              
 }

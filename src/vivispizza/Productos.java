@@ -31,7 +31,7 @@ public class Productos extends javax.swing.JFrame {
     public Productos() {
         initComponents();
           setLocationRelativeTo(null);
-           this.cmbtipo_prod.setModel(metodos.tipo_producto());
+          this.cmbtipo_prod.setModel(metodos.tipo_producto());
            actualizartabla();
     }
 
@@ -275,6 +275,8 @@ public class Productos extends javax.swing.JFrame {
             }
             
            conexion.close();
+           ps.close();
+           rs.close();
          }catch(SQLException ex) {
             System.err.println(ex.toString());  
             
@@ -445,7 +447,9 @@ public class Productos extends javax.swing.JFrame {
             /* Add_Supr_usuario el = new Add_Supr_usuario();
              el.setVisible(true);
              this.dispose();*/
-                conexion.close();
+            ps.close();
+            ps2.close();
+            conexion.close();
              } catch (SQLException ex) {
                  System.out.println(ex.toString());
                  
@@ -535,6 +539,8 @@ public class Productos extends javax.swing.JFrame {
                }
                 modelo.addRow(filas);               
             } 
+            ps.close();
+            rs.close();
             conexion.close();
         } catch(SQLException ex) {
             System.err.println(ex.toString());

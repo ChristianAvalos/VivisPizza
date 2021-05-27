@@ -18,15 +18,14 @@ public class conexiondb {
     public static String contraseña = "12345";
     public static String clase ="com.mysql.cj.jdbc.Driver";
     
-    
-    
     public static Connection getConexion (){
-        Connection conexion = null;
         
+        Connection conexion = null;
         try {
             Class.forName(clase);
             conexion = (Connection) DriverManager.getConnection(url,usuario,contraseña);
             System.out.println("Conexion establecida");
+            
         }catch (ClassNotFoundException | SQLException e) {
             
              System.out.println(e);
