@@ -385,7 +385,10 @@ DefaultTableModel modelo = new DefaultTableModel();
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         Menu_principal ventana = new Menu_principal();
-        ventana.labelusuario.setText(texto.toUpperCase());
+         if(texto!=null){
+               ventana.labelusuario.setText(texto.toUpperCase());
+               System.out.print("bobo");
+           }
         ventana.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed

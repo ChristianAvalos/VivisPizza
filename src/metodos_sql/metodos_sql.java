@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class metodos_sql {
     
 
-    public static conexiondb conexion = new conexiondb();
+   // public static conexiondb conexion = new conexiondb();
     public static PreparedStatement sentencia_preparada;
     public static ResultSet resultado;
     public static String sql;
@@ -434,7 +434,7 @@ public class metodos_sql {
         Connection conexion = null;
         DefaultComboBoxModel cmbtipo_prod = new DefaultComboBoxModel();
         cmbtipo_prod.addElement("Seleccione tipo");
-         String sentencia_guardar = ("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto");
+        String sentencia_guardar = ("select Codigo_Producto from Cod_Producto cp order by Codigo_Producto");
 
         try {
             conexion = conexiondb.getConexion();

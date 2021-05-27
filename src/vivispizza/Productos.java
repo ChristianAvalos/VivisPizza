@@ -229,7 +229,10 @@ public class Productos extends javax.swing.JFrame {
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
         // TODO add your handling code here:
          Menu_principal ventana = new Menu_principal();
-            ventana.labelusuario.setText(texto.toUpperCase());
+          if(texto!=null){
+               ventana.labelusuario.setText(texto.toUpperCase());
+               System.out.print("bobo");
+           }
                 ventana.setVisible(true);
                 this.dispose();
         

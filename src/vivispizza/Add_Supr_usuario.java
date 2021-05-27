@@ -188,7 +188,10 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
 
     private void btnregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresarActionPerformed
            Menu_principal ventana = new Menu_principal();
-            ventana.labelusuario.setText(texto.toUpperCase());
+           if(texto!=null){
+               ventana.labelusuario.setText(texto.toUpperCase());
+               System.out.print("bobo");
+           }
                 ventana.setVisible(true);
                 this.dispose();
     }//GEN-LAST:event_btnregresarActionPerformed
