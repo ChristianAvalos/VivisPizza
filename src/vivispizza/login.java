@@ -21,8 +21,11 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
         setLocationRelativeTo(null);
-        rsscalelabel.RSScaleLabel.setScaleLabel(lbfondo,"src/imagenes/20200221_114111_0000.png");
-        rsscalelabel.RSScaleLabel.setScaleLabel(lblLOgin,"src/imagenes/login2.png");
+       // rsscalelabel.RSScaleLabel.setScaleLabel(lbfondo,"src/imagenes/20200221_114111_0000.png");
+        //rsscalelabel.RSScaleLabel.setScaleLabel(lblLOgin,"src/imagenes/login2.png");
+        ///mnt/2BB12D737F92C9C5/software vivis pizza/vivispizza/build/classes/imagenes
+        rsscalelabel.RSScaleLabel.setScaleLabel(lblLOgin,"build/classes/imagenes/login2.png");
+        rsscalelabel.RSScaleLabel.setScaleLabel(lbfondo,"build/classes/imagenes/20200221_114111_0000.png");
         txtnombre.setBackground(new java.awt.Color(0,0,0,1));
         txtpasswd.setBackground(new java.awt.Color(0,0,0,1));
     }
@@ -38,10 +41,10 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbfondo = new javax.swing.JLabel();
         btningresar = new javax.swing.JButton();
         txtpasswd = new javax.swing.JPasswordField();
         txtnombre = new javax.swing.JTextField();
+        lbfondo = new javax.swing.JLabel();
         lblLOgin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,13 +52,8 @@ public class login extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbfondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/20200221_114111_0000.png"))); // NOI18N
-        getContentPane().add(lbfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 110, 110));
-
         btningresar.setBorder(null);
         btningresar.setContentAreaFilled(false);
-        btningresar.setOpaque(false);
         btningresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btningresarActionPerformed(evt);
@@ -75,6 +73,10 @@ public class login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, 480, 20));
+
+        lbfondo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/20200221_114111_0000.png"))); // NOI18N
+        getContentPane().add(lbfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 110, 110));
 
         lblLOgin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login2.png"))); // NOI18N
         getContentPane().add(lblLOgin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 720));
