@@ -5,6 +5,9 @@
  */
 package vivispizza;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import metodos_sql.Encriptar;
 import metodos_sql.metodos_sql;
@@ -21,13 +24,26 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
         setLocationRelativeTo(null);
-       // rsscalelabel.RSScaleLabel.setScaleLabel(lbfondo,"src/imagenes/20200221_114111_0000.png");
-        //rsscalelabel.RSScaleLabel.setScaleLabel(lblLOgin,"src/imagenes/login2.png");
-        ///mnt/2BB12D737F92C9C5/software vivis pizza/vivispizza/build/classes/imagenes
-        rsscalelabel.RSScaleLabel.setScaleLabel(lblLOgin,"build/classes/imagenes/login2.png");
-        rsscalelabel.RSScaleLabel.setScaleLabel(lbfondo,"build/classes/imagenes/20200221_114111_0000.png");
+        //Este codigo sirve para escalar las imagenes pero al acer el jar no funciona 
+       //  rsscalelabel.RSScaleLabel.setScaleLabel(lbfondo,"src/imagenes/20200221_114111_0000.png");
+       // rsscalelabel.RSScaleLabel.setScaleLabel(lblLOgin,"src/imagenes/login2.png");
         txtnombre.setBackground(new java.awt.Color(0,0,0,1));
         txtpasswd.setBackground(new java.awt.Color(0,0,0,1));
+        
+         //Este codigo sirve para escalar las imagenes y hacer el .Jar correctamente 
+         ImageIcon imgIcon = new ImageIcon(getClass().getResource("/imagenes/20200221_114111_0000.png"));
+         Image imgEscalada = imgIcon.getImage().getScaledInstance(lbfondo.getWidth(),
+         lbfondo.getHeight(), Image.SCALE_SMOOTH);
+         Icon iconoEscalado = new ImageIcon(imgEscalada);
+         lbfondo.setIcon(iconoEscalado);
+         
+         ImageIcon imgIcon2 = new ImageIcon(getClass().getResource("/imagenes/login2.png"));
+         Image imgEscalada2 = imgIcon2.getImage().getScaledInstance(lblLOgin.getWidth(),
+         lblLOgin.getHeight(), Image.SCALE_SMOOTH);
+         Icon iconoEscalado2 = new ImageIcon(imgEscalada2);
+         lblLOgin.setIcon(iconoEscalado2);
+         
+         
     }
 
     /**
