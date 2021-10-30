@@ -175,9 +175,9 @@ private metodos_sql metodos = new metodos_sql();
             conexion = conexiondb.getConexion();
             JasperReport reporte = null;
             //Este path seria para linux
-            String path = "/mnt/2BB12D737F92C9C5/software vivis pizza/vivispizza/src/Reportes/Reportes_Ventas.jasper";
+            //String path = "/mnt/2BB12D737F92C9C5/software vivis pizza/vivispizza/src/Reportes/Reportes_Ventas.jasper";
             //Este path seria para windows
-            //String path = "D:\\software vivis pizza\\vivispizza\\src\\Reportes\\Reportes_Ventas.jasper";
+            String path = "D:\\software vivis pizza\\vivispizza\\src\\Reportes\\Reportes_Ventas.jasper";
             //Aqui se le pasa el parametro de Fechas
             Map parametro = new HashMap();
             parametro.put("fecha",FechaInicio);
