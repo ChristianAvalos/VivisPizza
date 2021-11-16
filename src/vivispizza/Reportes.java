@@ -55,7 +55,7 @@ private metodos_sql metodos = new metodos_sql();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnRegresar = new javax.swing.JToggleButton();
+        jPanel1 = new javax.swing.JPanel();
         btnventas = new javax.swing.JButton();
         JFechaInicio = new com.toedter.calendar.JDateChooser();
         JFechaFin = new com.toedter.calendar.JDateChooser();
@@ -63,16 +63,14 @@ private metodos_sql metodos = new metodos_sql();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnListado_Productos = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reporte");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnventas.setText("Ventas");
         btnventas.addActionListener(new java.awt.event.ActionListener() {
@@ -80,15 +78,21 @@ private metodos_sql metodos = new metodos_sql();
                 btnventasActionPerformed(evt);
             }
         });
+        jPanel1.add(btnventas, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 159, -1, -1));
+        jPanel1.add(JFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 83, 150, -1));
+        jPanel1.add(JFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 83, 160, -1));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Reportes");
         jLabel1.setToolTipText("");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 27, 564, -1));
 
         jLabel2.setText("Desde");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 89, -1, -1));
 
         jLabel3.setText("Hasta");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 89, -1, -1));
 
         btnListado_Productos.setText("Listado de Productos");
         btnListado_Productos.addActionListener(new java.awt.event.ActionListener() {
@@ -96,70 +100,20 @@ private metodos_sql metodos = new metodos_sql();
                 btnListado_ProductosActionPerformed(evt);
             }
         });
+        jPanel1.add(btnListado_Productos, new org.netbeans.lib.awtextra.AbsoluteConstraints(168, 159, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnRegresar))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnventas)
-                                .addGap(67, 67, 67)
-                                .addComponent(btnListado_Productos))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(JFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(JFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 106, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jLabel2)
-                    .addComponent(JFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(JFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnventas)
-                    .addComponent(btnListado_Productos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addContainerGap())
-        );
+        jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 200));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        Menu_principal ventana = new Menu_principal();
-         if(texto!=null){
-               ventana.labelusuario.setText(texto.toUpperCase());
-               System.out.print("bobo");
-           }
-        ventana.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnventasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnventasActionPerformed
             SimpleDateFormat dformart=new SimpleDateFormat("dd/MM/yyyy");
@@ -219,6 +173,15 @@ private metodos_sql metodos = new metodos_sql();
         Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
     }
     }//GEN-LAST:event_btnListado_ProductosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Menu_principal ventana = new Menu_principal();
+         if(texto!=null){
+               ventana.labelusuario.setText(texto.toUpperCase());
+         }
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
  public java.util.Date fechaDate;
     public  java.util.Date ParseFecha(String fecha){
         fechaDate = null;
@@ -275,10 +238,11 @@ private metodos_sql metodos = new metodos_sql();
     private com.toedter.calendar.JDateChooser JFechaFin;
     private com.toedter.calendar.JDateChooser JFechaInicio;
     private javax.swing.JButton btnListado_Productos;
-    private javax.swing.JToggleButton btnRegresar;
     private javax.swing.JButton btnventas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
