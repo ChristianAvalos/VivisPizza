@@ -30,8 +30,8 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
      */
     public Add_Supr_usuario() {
         initComponents();
-       setLocationRelativeTo(null);
-       actualizartabla();
+        setLocationRelativeTo(null);
+        actualizartabla();
       
     }
       metodos_sql metodos = new metodos_sql();
