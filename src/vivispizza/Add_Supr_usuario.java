@@ -55,6 +55,7 @@ public class Add_Supr_usuario extends javax.swing.JFrame {
         jtusuarios = new javax.swing.JTable();
         btnbuscar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
+        //Prueba de git
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
